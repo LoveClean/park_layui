@@ -4,13 +4,24 @@ layui.use(['form', 'layer', 'upload'], function () {
         upload = layui.upload,
         $ = layui.jquery;
 
+    //变化后的数组
     let tempList = [];
+    //提交表单时赋值，值与tempList相同
+    let tempList2 = [];
+    let tempList3 = [];
+    //原始数组
+    let tempListStatic = [];
+    //要加上的数组
+    let tempListFinal2 = [];
+    //要减去的数组
+    let tempListFinal3 = [];
     setTimeout(function () {
         //获取list
         $.ajax({
             url: $.cookie("tempUrl") + "connection/selectListByAppId?token=" + $.cookie("token") + "&appId=" + $(".id").val(),
             type: "GET",
             success: function (result) {
+                tempListStatic = result;
                 tempList = result;
                 //渲染标签
                 $.ajax({
@@ -33,11 +44,11 @@ layui.use(['form', 'layer', 'upload'], function () {
     }, 500);
 
     form.on('checkbox(appList)', function (data) {
-        layer.msg("园区列表暂时还无法更新，这只是演示效果，其他内容均可更新");
         data.elem.checked ? tempList.push(data.value) : (tempList = $.grep(tempList, function (item) {
             return item !== data.value;
         }));
         console.log(tempList);
+        console.log(tempListStatic);
     });
 
     //普通图片上传
@@ -80,6 +91,23 @@ layui.use(['form', 'layer', 'upload'], function () {
     });
 
     form.on("submit(addNews)", function (data) {
+        tempList2 = tempList;
+        tempList3 = tempList;
+
+        tempList2.forEach((a) => {
+            let c = tempListStatic.findIndex(b => a === b);
+            if (c > -1) delete tempListStatic[c];
+            else tempListFinal2.push(a);
+        });
+        console.log(tempListFinal2);
+
+        tempListStatic.forEach((a) => {
+            let c = tempList3.findIndex(b => a === b);
+            if (c > -1) delete tempList2[c];
+            else tempListFinal3.push(a);
+        });
+        console.log(tempListFinal3);
+
         //弹出loading
         const index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
         $.ajax({
@@ -91,7 +119,9 @@ layui.use(['form', 'layer', 'upload'], function () {
                 appId: $(".id").val(),
                 name: $(".name").val(),
                 icon: coverUrl,
-                sort: null
+                sort: null,
+                parkIds2: tempListFinal2,
+                parkIds3: tempListFinal3
             }),
             success: function (result) {
                 if (result.code === 0) {

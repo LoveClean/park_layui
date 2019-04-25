@@ -138,6 +138,7 @@ layui.use(['form', 'layer', 'table'], function () {
                     });
                     break;
                 case 'edit'://编辑
+                    sessionStorage.setItem("location", data.location);
                     index = layui.layer.open({
                         title: "查看/更新园区",
                         type: 2,
@@ -146,7 +147,7 @@ layui.use(['form', 'layer', 'table'], function () {
                             const body = layui.layer.getChildFrame('body', index);
                             body.find(".id").val(data.parkId);
                             body.find(".name").val(data.name);
-                            // body.find(".area").val(data.areaCode);
+                            // body.find(".area").val(data.location);
                             body.find(".address").val(data.address);
                             body.find(".createDate").val(data.createDate);
                             body.find("#demo1").attr("src", data.logo);  //封面图

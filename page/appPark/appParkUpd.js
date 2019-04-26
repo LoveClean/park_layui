@@ -22,6 +22,9 @@ layui.use(['form', 'layer', 'layedit', 'upload'], function () {
                     const data = result.data;
                     $(".id").val(data.id);
                     $("#demo1").attr("src", data.cover);  //封面图
+                    $(".color").val(data.color);
+                    $(".contact").val(data.contact);
+                    $(".description").val(data.description);
                     $(".address").val(data.address);
                     $(".price").val(data.price);
                     $(".introduction").val(data.introduction);
@@ -85,9 +88,9 @@ layui.use(['form', 'layer', 'layedit', 'upload'], function () {
                 address: $(".address").val(),
                 price: $(".price").val(),
                 model: null,
-                color: null,
-                contact: null,
-                description: null,
+                color: $(".color").val(),
+                contact: $(".contact").val(),
+                description: $(".description").val(),
                 introduction: $(".introduction").val(),
                 status: 1,
                 content: layedit.getContent(editIndex)

@@ -42,6 +42,7 @@ layui.use(['form', 'layer', 'table'], function () {
                     }
                 },
                 {field: 'address', title: '详细地址', minWidth: 300, align: 'left'},
+                // {field: 'introduction', title: 'introduction', minWidth: 300, align: 'left'},
                 // {field: 'sort', title: '排序', minWidth: 300, align: 'left'},
                 {
                     field: 'createDate', title: '创建时间', width: 200, align: "center", templet: function (d) {
@@ -149,6 +150,7 @@ layui.use(['form', 'layer', 'table'], function () {
                             body.find(".name").val(data.name);
                             // body.find(".area").val(data.location);
                             body.find(".address").val(data.address);
+                            body.find(".introduction").val(data.introduction);
                             body.find(".createDate").val(data.createDate);
                             body.find("#demo1").attr("src", data.logo);  //封面图
                             form.render();

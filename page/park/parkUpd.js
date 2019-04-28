@@ -10,21 +10,25 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
         upload = layui.upload,
         $ = layui.jquery;
 
+    let longitude = null,
+        latitude = null,
+        //变化后的数组
+        tempList = [],
+        //提交表单时赋值，值与tempList相同
+        tempList2 = [],
+        tempList3 = [],
+        //原始数组
+        tempListStatic = [],
+        //要加上的数组
+        tempListFinal2 = [],
+        //要减去的数组
+        tempListFinal3 = [],
+        coverUrl = null;
+
     //获取省信息,并赋值
     const location = sessionStorage.getItem("location");
     address.init(location.slice(0, 2), location.slice(0, 4), location);
 
-    //变化后的数组
-    let tempList = [];
-    //提交表单时赋值，值与tempList相同
-    let tempList2 = [];
-    let tempList3 = [];
-    //原始数组
-    let tempListStatic = [];
-    //要加上的数组
-    let tempListFinal2 = [];
-    //要减去的数组
-    let tempListFinal3 = [];
     setTimeout(function () {
         //获取list
         $.ajax({
@@ -62,7 +66,6 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
     });
 
     //普通图片上传
-    let coverUrl = null;
     const uploadInst = upload.render({
         elem: '#test1'
         , url: $.cookie("tempUrl") + 'file/uploadImage?token=' + $.cookie("token")
@@ -101,6 +104,23 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
     });
 
     form.on("submit(addNews)", function (data) {
+        //经纬度
+        const province = $("#province").parent().find("div").find("div").find("input").val();
+        const city = $("#city").parent().find("div").find("div").find("input").val();
+        const area = $("#area").parent().find("div").find("div").find("input").val();
+        const address = province + city + area;
+        //坐标
+        $.ajax({
+            url: $.cookie("tempUrl") + "common/geocoderByAddress?address=" + address + $(".address").val(),
+            type: "GET",
+            async: false,
+            success: function (result) {
+                longitude = result.result.location.lng;
+                latitude = result.result.location.lat;
+            }
+        });
+
+        //应用更新
         tempList2 = tempList;
         tempList3 = tempList;
 
@@ -131,6 +151,9 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
                 logo: coverUrl,
                 location: data.field.area,
                 address: $(".address").val(),
+                longitude: longitude,
+                latitude: latitude,
+                introduction: $(".introduction").val(),
                 sort: null,
                 appIds2: tempListFinal2,
                 appIds3: tempListFinal3

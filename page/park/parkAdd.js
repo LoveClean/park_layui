@@ -10,6 +10,11 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
         upload = layui.upload,
         $ = layui.jquery;
 
+    let longitude = null,
+        latitude = null,
+        tempList = [],
+        coverUrl = null;
+
     //获取省信息
     address.provinces();
 
@@ -26,7 +31,6 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
         }
     });
 
-    let tempList = [];
     form.on('checkbox(appList)', function (data) {
         data.elem.checked ? tempList.push(data.value) : (tempList = $.grep(tempList, function (item) {
             return item !== data.value;
@@ -35,7 +39,6 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
     });
 
     //封面图上传
-    let coverUrl = null;
     const uploadInst = upload.render({
         elem: '#test1'
         , url: $.cookie("tempUrl") + 'file/uploadImage?token=' + $.cookie("token")
@@ -74,18 +77,36 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
     });
 
     form.on("submit(addNews)", function (data) {
-        //弹出loading
+        const province = $("#province").parent().find("div").find("div").find("input").val();
+        const city = $("#city").parent().find("div").find("div").find("input").val();
+        const area = $("#area").parent().find("div").find("div").find("input").val();
+        const address = province + city + area;
+        //坐标
+        $.ajax({
+            url: $.cookie("tempUrl") + "common/geocoderByAddress?address=" + address + $(".address").val(),
+            type: "GET",
+            async: false,
+            success: function (result) {
+                longitude = result.result.location.lng;
+                latitude = result.result.location.lat;
+            }
+        });
+        // 弹出loading
         const index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
         $.ajax({
             url: $.cookie("tempUrl") + "park/insertSelective?token=" + $.cookie("token"),
             type: "POST",
             datatype: "application/json",
             contentType: "application/json;charset=utf-8",
+            async: false,
             data: JSON.stringify({
                 name: $(".name").val(),
                 logo: coverUrl,
                 location: data.field.area,
                 address: $(".address").val(),
+                longitude: longitude,
+                latitude: latitude,
+                introduction: $(".introduction").val(),
                 sort: null,
                 appIds: tempList
             }),

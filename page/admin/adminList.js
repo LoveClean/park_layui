@@ -43,14 +43,23 @@ layui.use(['form', 'layer', 'table'], function () {
         cols: [[
             {field: 'id', title: 'ID', width: 90, align: 'center'},
             {
-                field: 'account', title: '用户名', minWidth: 200, align: "center", templet: function (d) {
+                field: 'account', title: '用户名', minWidth: 100, align: "center", templet: function (d) {
                     return '<a lay-event="edit" style="cursor:pointer;">' + d.account + '</a>';
                 }
             },
             {field: 'name', title: '真实姓名', minWidth: 100, align: "center"},
-            {field: 'phone', title: '手机号', align: 'center'},
+            {field: 'phone', title: '手机号', minWidth: 150, align: 'center'},
             {
-                field: 'createDate', title: '创建时间', minWidth: 200, align: "center", templet: function (d) {
+                field: 'parkId', title: '身份', minWidth: 120, align: "center", templet: function (d) {
+                    if (d.parkId === null || d.parkId === "") {
+                        return '超级管理员';
+                    } else {
+                        return '园区管理员';
+                    }
+                }
+            },
+            {
+                field: 'createDate', title: '创建时间', minWidth: 170, align: "center", templet: function (d) {
                     return d.createDate;
                 }
             },

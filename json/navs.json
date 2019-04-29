@@ -25,24 +25,10 @@
       "spread": false
     },
     {
-      "title": "系统设置",
-      "icon": "&#xe716;",
-      "href": "",
-      "spread": false,
-      "children": [
-        {
-          "title": "管理员管理",
-          "icon": "&#xe613;",
-          "href": "page/admin/adminList.html",
-          "spread": false
-        },
-        {
-          "title": "系统参数（预留）",
-          "icon": "&#xe716;",
-          "href": "",
-          "spread": false
-        }
-      ]
+      "title": "管理员管理",
+      "icon": "&#xe613;",
+      "href": "page/admin/adminList.html",
+      "spread": false
     }
   ],
   "navs2": [

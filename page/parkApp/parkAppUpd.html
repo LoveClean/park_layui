@@ -16,7 +16,7 @@
 <form class="layui-form layui-row layui-col-space10">
     <div class="layui-col-md12 layui-col-xs12">
         <div class="layui-row layui-col-space10">
-            <div class="layui-col-md4 layui-col-xs4">
+            <div class="layui-col-md4 layui-col-xs12">
                 <div class="layui-form-item magt3" hidden>
                     <label class="layui-form-label">详情Id</label>
                     <div class="layui-input-block">
@@ -41,20 +41,24 @@
                         <input type="text" class="layui-input address" placeholder="选填">
                     </div>
                 </div>
-                <div class="layui-form-item magt3">
-                    <label class="layui-form-label">联系人称谓</label>
-                    <div class="layui-input-block">
-                        <input type="text" class="layui-input color" placeholder="必填" lay-verify="required">
-                    </div>
-                </div>
-                <div class="layui-form-item magt3">
-                    <label class="layui-form-label">联系人电话</label>
-                    <div class="layui-input-block">
-                        <input type="number" class="layui-input contact" placeholder="必填" lay-verify="required">
+                <div class="contact-wrap">
+                    <div class="layui-form-item contact">
+                        <div class="">
+                        </div>
+                        <label class="layui-form-label">
+                            联系人<i class="layui-icon" id="contact-add-btn">&#xe608;</i></label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input contact-name" placeholder="必填" lay-verify="required">
+                        </div>
+                        <label class="layui-form-label">联系人电话</label>
+                        <div class="layui-input-inline">
+                            <input type="number" class="layui-input contact-value" placeholder="必填"
+                                   lay-verify="required">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="layui-col-md4 layui-col-xs4">
+            <div class="layui-col-md4 layui-col-xs12">
                 <div class="layui-form-item magt3">
                     <label class="layui-form-label">描述</label>
                     <div class="layui-input-block">
@@ -74,7 +78,7 @@
                     </div>
                 </div>
             </div>
-            <div class="layui-col-md4 layui-col-xs4">
+            <div class="layui-col-md4 layui-col-xs12">
                 <div class="layui-upload-list thumbBox5 mag0 magt3" id="test1">
                     <img class="layui-upload-img thumbImg" id="demo1">
                 </div>

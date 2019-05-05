@@ -41,16 +41,17 @@
                         <input type="text" class="layui-input address" placeholder="选填">
                     </div>
                 </div>
-                <div class="layui-form-item magt3">
-                    <label class="layui-form-label">联系人称谓</label>
-                    <div class="layui-input-block">
-                        <input type="text" class="layui-input color" placeholder="必填" lay-verify="required">
-                    </div>
-                </div>
-                <div class="layui-form-item magt3">
-                    <label class="layui-form-label">联系人电话</label>
-                    <div class="layui-input-block">
-                        <input type="number" class="layui-input contact" placeholder="必填" lay-verify="required">
+                <div class="contact-wrap">
+                    <div class="layui-form-item contact">
+                        <label class="layui-form-label">
+                            联系人<i class="layui-icon" id="contact-add-btn">&#xe608;</i></label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input contact-name" placeholder="名称" lay-verify="required">
+                        </div>
+                        <div class="layui-input-inline">
+                            <input type="number" class="layui-input contact-value" placeholder="手机号"
+                                   lay-verify="required">
+                        </div>
                     </div>
                 </div>
             </div>

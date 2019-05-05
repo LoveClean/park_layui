@@ -15,7 +15,7 @@ layui.use(['form', 'layer', 'layedit', 'upload'], function () {
 
     setTimeout(function () {
         $.ajax({
-            url: $.cookie("tempUrl") + "app/selectByPrimaryKeyForDetail?token=" + $.cookie("token") + "&appId=" + sessionStorage.getItem("appId") + "&parkId=" + $(".parkId").val(),
+            url: $.cookie("tempUrl") + "app/selectParkAppInfo?token=" + $.cookie("token") + "&appId=" + sessionStorage.getItem("appId") + "&parkId=" + $(".parkId").val(),
             type: "GET",
             success: function (result) {
                 if (result.code === 0) {
@@ -23,7 +23,8 @@ layui.use(['form', 'layer', 'layedit', 'upload'], function () {
                     $(".id").val(data.id);
                     $("#demo1").attr("src", data.cover);  //封面图
                     $(".color").val(data.color);
-                    $(".contact").val(data.contact);
+                    // 渲染联系人
+                    loadContact(data.contact);
                     $(".description").val(data.description);
                     $(".address").val(data.address);
                     $(".price").val(data.price);
@@ -36,12 +37,40 @@ layui.use(['form', 'layer', 'layedit', 'upload'], function () {
         });
     }, 500);
 
-    // form.on('checkbox(appList)', function (data) {
-    //     data.elem.checked ? tempList.push(data.value) : (tempList = $.grep(tempList, function (item) {
-    //         return item !== data.value;
-    //     }));
-    //     console.log(tempList);
-    // });
+    function loadContact(contactList) {
+        if (contactList !== null) {
+            $(".contact-name").val(contactList[0].name);
+            $(".contact-value").val(contactList[0].value);
+            for (let i = 1; i < contactList.length; i++) {
+                $(".contact-wrap").append(" <div class=\"layui-form-item contact\">\n" +
+                    "                    <label class=\"layui-form-label\">联系人" + (i + 1) + "</label>\n" +
+                    "                    <div class=\"layui-input-inline\">\n" +
+                    "                        <input type=\"text\" class=\"layui-input contact-name\" placeholder=\"名称\" value='" + contactList[i].name + "' >\n" +
+                    "                    </div>\n" +
+                    // "                    <label class=\"layui-form-label\">电话</label>\n" +
+                    "                    <div class=\"layui-input-inline\">\n" +
+                    "                        <input type=\"number\" class=\"layui-input contact-value\" placeholder=\"手机号\" value='" + contactList[i].value + "'>\n" +
+                    "                    </div>\n" +
+                    "                </div>")
+            }
+        }
+    }
+
+    $("#contact-add-btn").on("click", function (e) {
+        e.preventDefault();
+        if ($(".contact").length < 5) {
+            $(".contact-wrap").append(" <div class=\"layui-form-item contact\">\n" +
+                "                    <label class=\"layui-form-label\">联系人</label>\n" +
+                "                    <div class=\"layui-input-inline\">\n" +
+                "                        <input type=\"text\" class=\"layui-input contact-name\" placeholder=\"名称\" >\n" +
+                "                    </div>\n" +
+                // "                    <label class=\"layui-form-label\">电话</label>\n" +
+                "                    <div class=\"layui-input-inline\">\n" +
+                "                        <input type=\"number\" class=\"layui-input contact-value\" placeholder=\"手机号\" >\n" +
+                "                    </div>\n" +
+                "                </div>")
+        }
+    });
 
     //普通图片上传
     let coverUrl = null;
@@ -78,7 +107,7 @@ layui.use(['form', 'layer', 'layedit', 'upload'], function () {
         //弹出loading
         const index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
         $.ajax({
-            url: $.cookie("tempUrl") + "app/updateByPrimaryKeySelectiveForDetail?token=" + $.cookie("token"),
+            url: $.cookie("tempUrl") + "app/updateParkAppInfo?token=" + $.cookie("token"),
             type: "PUT",
             datatype: "application/json",
             contentType: "application/json;charset=utf-8",
@@ -87,9 +116,7 @@ layui.use(['form', 'layer', 'layedit', 'upload'], function () {
                 cover: coverUrl,
                 address: $(".address").val(),
                 price: $(".price").val(),
-                model: null,
-                color: $(".color").val(),
-                contact: $(".contact").val(),
+                contact: packContact(),
                 description: $(".description").val(),
                 introduction: $(".introduction").val(),
                 status: 1,
@@ -111,4 +138,19 @@ layui.use(['form', 'layer', 'layedit', 'upload'], function () {
         });
         return false;
     });
+
+    function packContact() {
+        let contactList = [];
+        $(".contact").each(function () {
+            let name = $(this).find(".contact-name").val();
+            let value = $(this).find(".contact-value").val();
+            if (name !== "" && value !== "") {
+                contactList.push({
+                    name: name,
+                    value: value
+                })
+            }
+        })
+        return contactList;
+    }
 });

@@ -45,11 +45,11 @@ layui.use(['form', 'layer', 'layedit', 'upload'], function () {
                 $(".contact-wrap").append(" <div class=\"layui-form-item contact\">\n" +
                     "                    <label class=\"layui-form-label\">联系人" + (i + 1) + "</label>\n" +
                     "                    <div class=\"layui-input-inline\">\n" +
-                    "                        <input type=\"text\" class=\"layui-input contact-name\" placeholder=\"选填\" value='" + contactList[i].name + "' >\n" +
+                    "                        <input type=\"text\" class=\"layui-input contact-name\" placeholder=\"名称\" value='" + contactList[i].name + "' >\n" +
                     "                    </div>\n" +
-                    "                    <label class=\"layui-form-label\">电话</label>\n" +
+                    // "                    <label class=\"layui-form-label\">电话</label>\n" +
                     "                    <div class=\"layui-input-inline\">\n" +
-                    "                        <input type=\"number\" class=\"layui-input contact-value\" placeholder=\"选填\" value='" + contactList[i].value + "'>\n" +
+                    "                        <input type=\"number\" class=\"layui-input contact-value\" placeholder=\"手机号\" value='" + contactList[i].value + "'>\n" +
                     "                    </div>\n" +
                     "                </div>")
             }
@@ -62,11 +62,11 @@ layui.use(['form', 'layer', 'layedit', 'upload'], function () {
             $(".contact-wrap").append(" <div class=\"layui-form-item contact\">\n" +
                 "                    <label class=\"layui-form-label\">联系人</label>\n" +
                 "                    <div class=\"layui-input-inline\">\n" +
-                "                        <input type=\"text\" class=\"layui-input contact-name\" placeholder=\"选填\" >\n" +
+                "                        <input type=\"text\" class=\"layui-input contact-name\" placeholder=\"名称\" >\n" +
                 "                    </div>\n" +
-                "                    <label class=\"layui-form-label\">电话</label>\n" +
+                // "                    <label class=\"layui-form-label\">电话</label>\n" +
                 "                    <div class=\"layui-input-inline\">\n" +
-                "                        <input type=\"number\" class=\"layui-input contact-value\" placeholder=\"选填\" >\n" +
+                "                        <input type=\"number\" class=\"layui-input contact-value\" placeholder=\"手机号\" >\n" +
                 "                    </div>\n" +
                 "                </div>")
         }

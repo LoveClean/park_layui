@@ -114,11 +114,8 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
                 if (result.code === 0) {
                     layer.msg("申请成功，请等待管理员审核。。");
                     setTimeout(function () {
-                        top.layer.close(index);
-                        layer.closeAll("iframe");
-                        //刷新父页面
-                        parent.location.reload();
-                    }, 500);
+                        window.location.href = "./temp.html";
+                    }, 1000);
                 } else {
                     layer.msg(result.exception, {icon: 7, anim: 6});
                 }

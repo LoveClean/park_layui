@@ -100,7 +100,7 @@ layui.use(['form', 'layer', 'table'], function () {
         // 修改状态开关
         form.on('switch(status)', function (data) {
             $.ajax({
-                url: $.cookie("tempUrl") + "park/updateByStatus?token=" + $.cookie("token"),
+                url: $.cookie("tempUrl") + "park/updateStatus?token=" + $.cookie("token"),
                 type: "PUT",
                 datatype: "application/json",
                 contentType: "application/json;charset=utf-8",

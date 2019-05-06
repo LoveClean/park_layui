@@ -49,15 +49,15 @@ layui.use(['form', 'layer', 'table'], function () {
                         return d.createDate;
                     }
                 },
-                {
-                    field: 'status', title: '状态', width: 100, align: 'center', templet: function (d) {
-                        if (d.status === 1) {
-                            return '<input type="checkbox" lay-filter="status" lay-skin="switch" value=' + d.parkId + ' lay-text="正常|待审核" checked>';
-                        } else if (d.status === 0) {
-                            return '<input type="checkbox" lay-filter="status" lay-skin="switch" value=' + d.parkId + ' lay-text="正常|待审核" >';
-                        }
-                    }
-                },
+                // {
+                //     field: 'status', title: '状态', width: 100, align: 'center', templet: function (d) {
+                //         if (d.status === 1) {
+                //             return '<input type="checkbox" lay-filter="status" lay-skin="switch" value=' + d.id + ' lay-text="可见|不可见" checked>';
+                //         } else if (d.status === 0) {
+                //             return '<input type="checkbox" lay-filter="status" lay-skin="switch" value=' + d.id + ' lay-text="可见|不可见" >';
+                //         }
+                //     }
+                // },
                 {title: '操作', width: 145, templet: '#userListBar', fixed: "right", align: "center"}
             ]]
         });
@@ -83,10 +83,15 @@ layui.use(['form', 'layer', 'table'], function () {
                     const index = layui.layer.open({
                         title: "新增园区",
                         type: 2,
-                        area: ["900px", "500px"],
-                        shadeClose: true,
-                        maxmin: true,
-                        content: "parkAdd.html"
+                        area: ["550px", "350px"],
+                        content: "parkAdd.html",
+                        shadeClose: true
+                    });
+                    layui.layer.full(index);
+                    window.sessionStorage.setItem("index", index);
+                    //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+                    $(window).on("resize", function () {
+                        layui.layer.full(window.sessionStorage.getItem("index"));
                     });
                     break;
             }
@@ -95,10 +100,10 @@ layui.use(['form', 'layer', 'table'], function () {
         // 修改状态开关
         form.on('switch(status)', function (data) {
             $.ajax({
-                url: $.cookie("tempUrl") + "park/updateStatus?token=" + $.cookie("token"),
+                url: $.cookie("tempUrl") + "park/updateByStatus?token=" + $.cookie("token"),
                 type: "PUT",
-                datatype: "application/json",
-                contentType: "application/json;charset=utf-8",
+                datatype: "parklication/json",
+                contentType: "parklication/json;charset=utf-8",
                 data: JSON.stringify({
                     "id": data.value,
                     "status": data.elem.checked ? "1" : "0"
@@ -124,10 +129,13 @@ layui.use(['form', 'layer', 'table'], function () {
                     index = layui.layer.open({
                         title: data.name + "下的应用列表",
                         type: 2,
-                        area: ["700px", "500px"],
-                        shadeClose: true,
-                        maxmin: true,
                         content: "../parkApp/parkAppList.html"
+                    });
+                    layui.layer.full(index);
+                    window.sessionStorage.setItem("index", index);
+                    //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+                    $(window).on("resize", function () {
+                        layui.layer.full(window.sessionStorage.getItem("index"));
                     });
                     break;
                 case 'edit'://编辑
@@ -135,9 +143,6 @@ layui.use(['form', 'layer', 'table'], function () {
                     index = layui.layer.open({
                         title: "查看/更新园区",
                         type: 2,
-                        area: ["900px", "500px"],
-                        shadeClose: true,
-                        maxmin: true,
                         content: "parkUpd.html",
                         success: function (layero, index) {
                             const body = layui.layer.getChildFrame('body', index);
@@ -150,6 +155,12 @@ layui.use(['form', 'layer', 'table'], function () {
                             body.find("#demo1").attr("src", data.logo);  //封面图
                             form.render();
                         }
+                    });
+                    layui.layer.full(index);
+                    window.sessionStorage.setItem("index", index);
+                    //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+                    $(window).on("resize", function () {
+                        layui.layer.full(window.sessionStorage.getItem("index"));
                     });
                     break;
                 case 'del'://删除

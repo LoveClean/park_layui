@@ -49,15 +49,15 @@ layui.use(['form', 'layer', 'table'], function () {
                         return d.createDate;
                     }
                 },
-                // {
-                //     field: 'status', title: '状态', width: 100, align: 'center', templet: function (d) {
-                //         if (d.status === 1) {
-                //             return '<input type="checkbox" lay-filter="status" lay-skin="switch" value=' + d.id + ' lay-text="可见|不可见" checked>';
-                //         } else if (d.status === 0) {
-                //             return '<input type="checkbox" lay-filter="status" lay-skin="switch" value=' + d.id + ' lay-text="可见|不可见" >';
-                //         }
-                //     }
-                // },
+                {
+                    field: 'status', title: '状态', width: 100, align: 'center', templet: function (d) {
+                        if (d.status === 1) {
+                            return '<input type="checkbox" lay-filter="status" lay-skin="switch" value=' + d.parkId + ' lay-text="正常|待审核" checked>';
+                        } else if (d.status === 0) {
+                            return '<input type="checkbox" lay-filter="status" lay-skin="switch" value=' + d.parkId + ' lay-text="正常|待审核" >';
+                        }
+                    }
+                },
                 {title: '操作', width: 145, templet: '#userListBar', fixed: "right", align: "center"}
             ]]
         });
@@ -102,8 +102,8 @@ layui.use(['form', 'layer', 'table'], function () {
             $.ajax({
                 url: $.cookie("tempUrl") + "park/updateByStatus?token=" + $.cookie("token"),
                 type: "PUT",
-                datatype: "parklication/json",
-                contentType: "parklication/json;charset=utf-8",
+                datatype: "application/json",
+                contentType: "application/json;charset=utf-8",
                 data: JSON.stringify({
                     "id": data.value,
                     "status": data.elem.checked ? "1" : "0"

@@ -69,9 +69,21 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
     });
 
     form.verify({
-        name: function (val) {
+        parkName: function (val) {
             if (val.length > 16) {
                 return "名称过长";
+            }
+        },
+        password: function (value, item) {
+            if (value.length < 6) {
+                return "密码长度不能小于6位";
+            } else if (value.length > 13) {
+                return "密码长度不能大于13位";
+            }
+        },
+        rePassword: function (value, item) {
+            if (!new RegExp($("#password").val()).test(value)) {
+                return "两次输入密码不一致，请重新输入！";
             }
         }
     });
@@ -100,7 +112,7 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
             contentType: "application/json;charset=utf-8",
             async: false,
             data: JSON.stringify({
-                name: $(".name").val(),
+                parkName: $(".parkName").val(),
                 logo: coverUrl,
                 location: data.field.area,
                 address: $(".address").val(),
@@ -108,7 +120,12 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
                 latitude: latitude,
                 introduction: $(".introduction").val(),
                 sort: null,
-                appIds: tempList
+                appIds: tempList,
+
+                account: $(".account").val(),
+                password: $(".password").val(),
+                phone: $(".phone").val(),
+                userName: $(".trueName").val()
             }),
             success: function (result) {
                 if (result.code === 0) {

@@ -15,25 +15,20 @@
 <body class="childrenBody">
 <form class="layui-form layui-row layui-col-space10">
     <div class="layui-col-md12 layui-col-xs12">
+        <hr class="layui-bg-black"/>
+        <span class="">请填写园区信息：</span>
+        <hr class="layui-bg-gray"/>
         <div class="layui-row layui-col-space10">
             <div class="layui-col-md7 layui-col-xs12">
                 <div class="layui-form-item magt3">
                     <label class="layui-form-label">园区名称</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input name" lay-verify="required|name"
+                        <input type="text" class="layui-input parkName" lay-verify="required|parkName"
                                placeholder="必填">
                     </div>
                 </div>
-                <!--            <div class="layui-form-item magt3">-->
-                <!--                <label class="layui-form-label">归属地</label>-->
-                <!--                <div class="layui-input-block">-->
-                <!--                    <input type="text" class="layui-input location" lay-verify="required"-->
-                <!--                           placeholder="必填">-->
-                <!--                </div>-->
-                <!--            </div>-->
-
                 <div class="layui-form-item layui-row userAddress">
-                    <label class="layui-form-label">归属地：</label>
+                    <label class="layui-form-label">归属地</label>
                     <div class="layui-input-inline">
                         <select name="province" lay-filter="province" class="province" id="province"
                                 lay-verify="required">
@@ -58,13 +53,6 @@
                                placeholder="必填">
                     </div>
                 </div>
-                <!--                <div class="layui-form-item magt3">-->
-                <!--                    <label class="layui-form-label">排序</label>-->
-                <!--                    <div class="layui-input-block">-->
-                <!--                        <input type="number" class="layui-input sort" lay-verify="required"-->
-                <!--                               placeholder="必填">-->
-                <!--                    </div>-->
-                <!--                </div>-->
                 <div class="layui-form-item magt3">
                     <label class="layui-form-label">简介</label>
                     <div class="layui-input-block">
@@ -73,6 +61,7 @@
                 </div>
             </div>
             <div class="layui-col-md5 layui-col-xs12">
+                <label class="layui-form-label">园区图</label>
                 <div class="layui-upload-list thumbBox mag0 magt3" id="test1">
                     <img class="layui-upload-img thumbImg" id="demo1">
                 </div>
@@ -83,8 +72,51 @@
             <div class="layui-input-block appList">
             </div>
         </div>
+        <hr class="layui-bg-black"/>
+        <span class="">请填写个人信息：</span>
+        <hr class="layui-bg-gray"/>
+        <div class="layui-row layui-col-space10">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input account" lay-filter="account" lay-verify="required" name="account"
+                           placeholder="请输入用户名">
+                </div>
+            </div>
+            <div class="layui-form-item magt3">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-block">
+                    <input type="password" class="layui-input password" id="password" lay-filter="password"
+                           lay-verify="required|password" name="password"
+                           placeholder="请输入密码">
+                </div>
+            </div>
+            <div class="layui-form-item magt3">
+                <label class="layui-form-label">密码确认</label>
+                <div class="layui-input-block">
+                    <input type="password" class="layui-input" lay-filter="rePassword" lay-verify="required|rePassword"
+                           name="rePassword"
+                           placeholder="请再次输入密码">
+                </div>
+            </div>
+            <div class="layui-form-item magt3">
+                <label class="layui-form-label">真实姓名</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input trueName" lay-filter="trueName" lay-verify="required" name="trueName"
+                           placeholder="请输入真实姓名">
+                </div>
+            </div>
+            <div class="layui-form-item magt3">
+                <label class="layui-form-label">联系电话</label>
+                <div class="layui-input-block">
+                    <input type="tel" class="layui-input phone" lay-filter="phone" lay-verify="required|phone"
+                           name="phone"
+                           placeholder="请输入手机号">
+                </div>
+            </div>
+        </div>
         <div class="layui-form-item magb0">
-            <hr class="layui-bg-gray"/>
+            <hr class="layui-bg-black"/>
             <div class="layui-right">
                 <a class="layui-btn" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe609;</i>提交申请</a>
             </div>

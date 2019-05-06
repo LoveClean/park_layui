@@ -83,15 +83,10 @@ layui.use(['form', 'layer', 'table'], function () {
                     const index = layui.layer.open({
                         title: "新增园区",
                         type: 2,
-                        area: ["550px", "350px"],
-                        content: "parkAdd.html",
-                        shadeClose: true
-                    });
-                    layui.layer.full(index);
-                    window.sessionStorage.setItem("index", index);
-                    //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-                    $(window).on("resize", function () {
-                        layui.layer.full(window.sessionStorage.getItem("index"));
+                        area: ["900px", "500px"],
+                        shadeClose: true,
+                        maxmin: true,
+                        content: "parkAdd.html"
                     });
                     break;
             }
@@ -129,13 +124,10 @@ layui.use(['form', 'layer', 'table'], function () {
                     index = layui.layer.open({
                         title: data.name + "下的应用列表",
                         type: 2,
+                        area: ["700px", "500px"],
+                        shadeClose: true,
+                        maxmin: true,
                         content: "../parkApp/parkAppList.html"
-                    });
-                    layui.layer.full(index);
-                    window.sessionStorage.setItem("index", index);
-                    //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-                    $(window).on("resize", function () {
-                        layui.layer.full(window.sessionStorage.getItem("index"));
                     });
                     break;
                 case 'edit'://编辑
@@ -143,6 +135,9 @@ layui.use(['form', 'layer', 'table'], function () {
                     index = layui.layer.open({
                         title: "查看/更新园区",
                         type: 2,
+                        area: ["900px", "500px"],
+                        shadeClose: true,
+                        maxmin: true,
                         content: "parkUpd.html",
                         success: function (layero, index) {
                             const body = layui.layer.getChildFrame('body', index);
@@ -155,12 +150,6 @@ layui.use(['form', 'layer', 'table'], function () {
                             body.find("#demo1").attr("src", data.logo);  //封面图
                             form.render();
                         }
-                    });
-                    layui.layer.full(index);
-                    window.sessionStorage.setItem("index", index);
-                    //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-                    $(window).on("resize", function () {
-                        layui.layer.full(window.sessionStorage.getItem("index"));
                     });
                     break;
                 case 'del'://删除

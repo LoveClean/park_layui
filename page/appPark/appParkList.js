@@ -27,93 +27,20 @@ layui.use(['form', 'layer', 'table'], function () {
             limits: [5, 10, 15, 20, 25],
             limit: 15,
             id: "dataTable",
-            // toolbar: '#toolbarDemo',
-            // defaultToolbar: [],
             cols: [[
-                {field: 'parkId', title: 'ID', width: 90, align: 'center'},
+                {field: 'parkId', title: 'ID', width: 70, align: 'center'},
                 {
-                    field: 'name', title: '园区名称', minWidth: 200, align: "left", templet: function (d) {
+                    field: 'name', title: '园区名称', minWidth: 100, align: "left", templet: function (d) {
                         return '<a lay-event="edit" style="cursor:pointer;color: #01AAED">' + d.name + '</a>';
                     }
                 },
                 {
-                    field: 'areaName', title: '归属地', minWidth: 300, align: "left", templet: function (d) {
+                    field: 'areaName', title: '归属地', minWidth: 200, align: "left", templet: function (d) {
                         return d.areaName;
                     }
                 },
-                {field: 'address', title: '详细地址', minWidth: 300, align: 'left'},
-                // {field: 'sort', title: '排序', minWidth: 300, align: 'left'},
-                {
-                    field: 'createDate', title: '创建时间', width: 200, align: "center", templet: function (d) {
-                        return d.createDate;
-                    }
-                },
-                // {
-                //     field: 'status', title: '状态', width: 100, align: 'center', templet: function (d) {
-                //         if (d.status === 1) {
-                //             return '<input type="checkbox" lay-filter="status" lay-skin="switch" value=' + d.id + ' lay-text="可见|不可见" checked>';
-                //         } else if (d.status === 0) {
-                //             return '<input type="checkbox" lay-filter="status" lay-skin="switch" value=' + d.id + ' lay-text="可见|不可见" >';
-                //         }
-                //     }
-                // },
-                // {title: '操作', width: 145, templet: '#userListBar', fixed: "right", align: "center"}
+                {field: 'address', title: '详细地址', minWidth: 200, align: 'left'}
             ]]
-        });
-
-        //头工具栏事件
-        table.on('toolbar(test)', function (obj) {
-            const checkStatus = table.checkStatus(obj.config.id);
-            switch (obj.event) {
-                case 'search_btn':
-                    table.reload("dataTable", {
-                        url: $.cookie("tempUrl") + 'park/selectListByTitle',
-                        where: {
-                            title: $(".searchVal").val(),
-                            token: $.cookie("token")
-                        }
-                    });
-                    break;
-                case 'flash_btn':
-                    window.location.reload();
-                    break;
-                case 'add_btn':
-                    const index = layui.layer.open({
-                        title: "新增园区",
-                        type: 2,
-                        area: ["550px", "350px"],
-                        content: "parkAdd.html",
-                        shadeClose: true
-                    });
-                    layui.layer.full(index);
-                    window.sessionStorage.setItem("index", index);
-                    //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-                    $(window).on("resize", function () {
-                        layui.layer.full(window.sessionStorage.getItem("index"));
-                    });
-                    break;
-            }
-        });
-
-        // 修改状态开关
-        form.on('switch(status)', function (data) {
-            $.ajax({
-                url: $.cookie("tempUrl") + "park/updateByStatus?token=" + $.cookie("token"),
-                type: "PUT",
-                datatype: "parklication/json",
-                contentType: "parklication/json;charset=utf-8",
-                data: JSON.stringify({
-                    "id": data.value,
-                    "status": data.elem.checked ? "1" : "0"
-                }),
-                success: function (result) {
-                    if (result.httpStatus === 200) {
-                        layer.msg("状态修改成功");
-                    } else {
-                        layer.alert(result.exception, {icon: 7, anim: 6});
-                    }
-                }
-            });
         });
 
         //列表操作
@@ -121,41 +48,23 @@ layui.use(['form', 'layer', 'table'], function () {
             const layEvent = obj.event,
                 data = obj.data;
             let index;
-            switch (layEvent) {
-                case 'edit'://编辑
-                    index = layui.layer.open({
-                        title: "查看/更新园区",
-                        type: 2,
-                        content: "appParkUpd.html",
-                        success: function (layero, index) {
-                            const body = layui.layer.getChildFrame('body', index);
-                            body.find(".parkId").val(data.parkId);
-                            body.find(".name").val(data.name);
-                            form.render();
-                        }
-                    });
-                    layui.layer.full(index);
-                    window.sessionStorage.setItem("index", index);
-                    //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-                    $(window).on("resize", function () {
-                        layui.layer.full(window.sessionStorage.getItem("index"));
-                    });
-                    break;
-                case 'del'://删除
-                    layer.confirm('确定删除此园区？', {icon: 3, title: '提示信息'}, function (index) {
-                        $.ajax({
-                            url: $.cookie("tempUrl") + "park/deleteByPrimaryKey?token=" + $.cookie("token") + "&id=" + data.parkId,
-                            type: "DELETE",
-                            success: function (result) {
-                                layer.msg("删除成功");
-                                // window.location.href = "parkList.html";
-                            }
-                        });
-                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                        // tableIns.reload();
-                        layer.close(index);
-                    });
-                    break;
+            if (layEvent === 'edit') {
+                index = layui.layer.open({
+                    title: "查看/更新园区",
+                    type: 2,
+                    content: "appParkUpd.html",
+                    success: function (layero, index) {
+                        const body = layui.layer.getChildFrame('body', index);
+                        body.find(".parkId").val(data.parkId);
+                        body.find(".name").val(data.name);
+                        form.render();
+                    }
+                });
+                layui.layer.full(index);
+                window.sessionStorage.setItem("index", index);
+                $(window).on("resize", function () {
+                    layui.layer.full(window.sessionStorage.getItem("index"));
+                });
             }
         });
     }

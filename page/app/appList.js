@@ -80,24 +80,11 @@ layui.use(['form', 'layer', 'table'], function () {
                     const index = layui.layer.open({
                         title: "新增应用",
                         type: 2,
-                        area: ["500px", "450px"],
-                        content: "appAdd.html",
+                        area: ["700px", "500px"],
                         shadeClose: true,
-                        success: function () {
-                            setTimeout(function () {
-                                layui.layer.tips('点击此处关闭', '.layui-layer-setwin .layui-layer-close', {
-                                    tips: 3
-                                });
-                            }, 100)
-                        }
+                        maxmin: true,
+                        content: "appAdd.html"
                     });
-                    layui.layer.full(index);
-                    window.sessionStorage.setItem("index", index);
-                    //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-                    $(window).on("resize", function () {
-                        layui.layer.full(window.sessionStorage.getItem("index"));
-                    });
-                    break;
             }
         });
 
@@ -135,30 +122,19 @@ layui.use(['form', 'layer', 'table'], function () {
                     index = layui.layer.open({
                         title: data.name + "下的园区列表",
                         type: 2,
-                        content: "../appPark/appParkList.html",
-                        success: function (layero, index) {
-                            // const body = layui.layer.getChildFrame('body', index);
-                            // body.find(".parkId").val(data.parkId);
-                            // layer.msg(data.parkId);
-                            // form.render();
-                            setTimeout(function () {
-                                layui.layer.tips('点击此处关闭', '.layui-layer-setwin .layui-layer-close', {
-                                    tips: 3
-                                });
-                            }, 100);
-                        }
-                    });
-                    layui.layer.full(index);
-                    window.sessionStorage.setItem("index", index);
-                    //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-                    $(window).on("resize", function () {
-                        layui.layer.full(window.sessionStorage.getItem("index"));
+                        area: ["700px", "500px"],
+                        shadeClose: true,
+                        maxmin: true,
+                        content: "../appPark/appParkList.html"
                     });
                     break;
                 case 'edit'://编辑
                     index = layui.layer.open({
                         title: "查看/更新应用",
                         type: 2,
+                        area: ["700px", "500px"],
+                        shadeClose: true,
+                        maxmin: true,
                         content: "appUpd.html",
                         success: function (layero, index) {
                             const body = layui.layer.getChildFrame('body', index);
@@ -167,18 +143,7 @@ layui.use(['form', 'layer', 'table'], function () {
                             body.find(".createDate").val(data.createDate);
                             body.find("#demo1").attr("src", data.icon);  //封面图
                             form.render();
-                            setTimeout(function () {
-                                layui.layer.tips('点击此处关闭', '.layui-layer-setwin .layui-layer-close', {
-                                    tips: 3
-                                });
-                            }, 100);
                         }
-                    });
-                    layui.layer.full(index);
-                    window.sessionStorage.setItem("index", index);
-                    //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-                    $(window).on("resize", function () {
-                        layui.layer.full(window.sessionStorage.getItem("index"));
                     });
                     break;
                 case 'del'://删除

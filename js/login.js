@@ -34,9 +34,10 @@ layui.use(['form', 'layer', 'jquery'], function () {
                 datatype: "application/json",
                 contentType: "application/json;charset=utf-8",
                 data: JSON.stringify({
-                    phone: $("#userName").val(),
+                    loginKey: $("#userName").val(),
                     loginPwd: $("#password").val(),
-                    verifyCode: $("#code").val()
+                    verifyCode: $("#code").val(),
+                    parkAdmin: false
                 }),
                 success: function (result) {
                     if (result.code === 0

@@ -78,7 +78,7 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
         // 弹出loading
         const index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
         $.ajax({
-            url: "http://122.112.225.34:8089/park/insertSelectiveForMember",
+            url: "http://122.112.225.34:8089/park/apply",
             type: "POST",
             datatype: "application/json",
             contentType: "application/json;charset=utf-8",

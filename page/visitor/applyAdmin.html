@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>注册账号</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../../layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../css/public.css" media="all"/>
+</head>
+<body class="childrenBody">
+<form class="layui-form layui-row layui-col-space10">
+    <div class="layui-col-md12 layui-col-xs12">
+        <hr class="layui-bg-black"/>
+        <span class="">请填写个人信息：</span>
+        <hr class="layui-bg-gray"/>
+        <div class="layui-row layui-col-space10">
+<!--            <div class="layui-form-item magt3">-->
+<!--                <label class="layui-form-label">用户名</label>-->
+<!--                <div class="layui-input-block">-->
+<!--                    <input type="text" class="layui-input account" lay-filter="account" lay-verify="required" name="account"-->
+<!--                           placeholder="请输入用户名">-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="layui-form-item magt3">
+                <label class="layui-form-label">手机号</label>
+                <div class="layui-input-block">
+                    <input type="tel" class="layui-input phone" lay-filter="phone" lay-verify="required|phone"
+                           name="phone"
+                           placeholder="必填">
+                </div>
+            </div>
+            <div class="layui-form-item magt3">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-block">
+                    <input type="password" class="layui-input password" id="password" lay-filter="password"
+                           lay-verify="required|password" name="password"
+                           placeholder="必填,6-13位">
+                </div>
+            </div>
+            <div class="layui-form-item magt3">
+                <label class="layui-form-label">密码确认</label>
+                <div class="layui-input-block">
+                    <input type="password" class="layui-input" lay-filter="rePassword" lay-verify="required|rePassword"
+                           name="rePassword"
+                           placeholder="请再次输入密码">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item magb0">
+            <hr class="layui-bg-black"/>
+            <div class="layui-right">
+                <a class="layui-btn" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe609;</i>下一步</a>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="../../js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../layui/layuiLogin.js"></script>
+<script type="text/javascript" src="applyAdmin.js"></script>
+</body>
+</html>

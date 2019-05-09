@@ -10,6 +10,10 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
         upload = layui.upload,
         $ = layui.jquery;
 
+    if ($.cookie("applyAdminPhone") == null || $.cookie("applyAdminPhone") === "") {
+        window.location.href = "./applyAdmin.html";
+    }
+
     let longitude = null,
         latitude = null,
         coverUrl = null;
@@ -52,29 +56,18 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
             if (val.length > 16) {
                 return "名称过长";
             }
-        },
-        password: function (value, item) {
-            if (value.length < 6) {
-                return "密码长度不能小于6位";
-            } else if (value.length > 13) {
-                return "密码长度不能大于13位";
-            }
-        },
-        rePassword: function (value, item) {
-            if (!new RegExp($("#password").val()).test(value)) {
-                return "两次输入密码不一致，请重新输入！";
-            }
         }
     });
 
     form.on("submit(addNews)", function (data) {
-        const province = $("#province").parent().find("div").find("div").find("input").val();
-        const city = $("#city").parent().find("div").find("div").find("input").val();
-        const area = $("#area").parent().find("div").find("div").find("input").val();
-        const address = province + city + area;
+        const province = $("#province").parent().find("div").find("div").find("input").val(),
+            city = $("#city").parent().find("div").find("div").find("input").val(),
+            area = $("#area").parent().find("div").find("div").find("input").val(),
+            address = province + city + area,
+            addressDetail = $(".address").val();
         //坐标
         $.ajax({
-            url: "http://122.112.225.34:8089/common/geocoderByAddress?address=" + address + $(".address").val(),
+            url: "http://122.112.225.34:8089/common/geocoderByAddress?address=" + address + addressDetail,
             type: "GET",
             async: false,
             success: function (result) {
@@ -94,22 +87,19 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
                 parkName: $(".parkName").val(),
                 logo: coverUrl,
                 location: data.field.area,
-                address: $(".address").val(),
+                address: addressDetail,
                 longitude: longitude,
                 latitude: latitude,
                 introduction: $(".introduction").val(),
                 sort: null,
 
-                account: $(".account").val(),
-                password: $(".password").val(),
-                phone: $(".phone").val(),
-                userName: null
+                phone: $.cookie("applyAdminPhone")
             }),
             success: function (result) {
                 if (result.code === 0) {
                     layer.msg("申请成功，请等待管理员审核。。");
                     setTimeout(function () {
-                        window.location.href = "./temp.html";
+                        window.location.href = "applySuccess.html";
                     }, 1000);
                 } else {
                     layer.msg(result.exception, {icon: 7, anim: 6});

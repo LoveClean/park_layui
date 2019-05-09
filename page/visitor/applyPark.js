@@ -11,7 +11,7 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
         $ = layui.jquery;
 
     const applyAdminPhone = window.localStorage.getItem("applyAdminPhone");
-    alert(applyAdminPhone);
+    // alert(applyAdminPhone);
     if (applyAdminPhone == null || applyAdminPhone === "") {
         window.location.href = "./applyAdmin.html";
     }

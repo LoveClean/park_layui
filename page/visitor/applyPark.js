@@ -10,7 +10,7 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
         upload = layui.upload,
         $ = layui.jquery;
 
-    if ($.cookie("applyAdminPhone") == null || $.cookie("applyAdminPhone") === "") {
+    if (window.localStorage.getItem("applyAdminPhone") == null || window.localStorage.getItem("applyAdminPhone") === "") {
         window.location.href = "./applyAdmin.html";
     }
 
@@ -93,7 +93,7 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
                 introduction: $(".introduction").val(),
                 sort: null,
 
-                phone: $.cookie("applyAdminPhone")
+                phone: window.localStorage.getItem("applyAdminPhone")
             }),
             success: function (result) {
                 if (result.code === 0) {

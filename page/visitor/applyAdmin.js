@@ -36,7 +36,8 @@ layui.use(['form', 'layer'], function () {
             success: function (result) {
                 if (result.code === 0) {
                     // layer.msg("申请成功，请等待管理员审核。。");
-                    $.cookie('applyAdminPhone', applyAdminPhone, {path: '/'});
+                    window.localStorage.setItem('applyAdminPhone', applyAdminPhone);
+                    // $.cookie('applyAdminPhone', applyAdminPhone, {expires: 7, path: '/'});
                     setTimeout(function () {
                         window.location.href = "./applyPark.html";
                     }, 500);

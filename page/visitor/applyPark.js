@@ -99,6 +99,7 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
             }),
             success: function (result) {
                 if (result.code === 0) {
+                    window.localStorage.removeItem('applyAdminPhone');
                     layer.msg("申请成功，请等待管理员审核。。");
                     setTimeout(function () {
                         window.location.href = "applySuccess.html";

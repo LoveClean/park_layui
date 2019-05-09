@@ -50,12 +50,11 @@ layui.use(['form', 'layer', 'table'], function () {
             {field: 'name', title: '真实姓名', minWidth: 100, align: "center"},
             {field: 'phone', title: '手机号', minWidth: 150, align: 'center'},
             {
-                field: 'parkId', title: '身份', minWidth: 120, align: "center", templet: function (d) {
-                    if (d.parkId === null || d.parkId === "") {
+                field: 'parkName', title: '所属园区', minWidth: 120, align: "center", templet: function (d) {
+                    if (d.parkName === null || d.parkName === "") {
                         return '超级管理员';
-                    } else {
-                        return '园区管理员';
                     }
+                    return d.parkName;
                 }
             },
             {
@@ -80,6 +79,7 @@ layui.use(['form', 'layer', 'table'], function () {
     //头工具栏事件
     table.on('toolbar(test)', function (obj) {
         const checkStatus = table.checkStatus(obj.config.id);
+        let index;
         switch (obj.event) {
             case 'search_btn':
                 table.reload("dataTable", {
@@ -94,8 +94,8 @@ layui.use(['form', 'layer', 'table'], function () {
                 window.location.reload();
                 break;
             case 'add_btn':
-                const index = layui.layer.open({
-                    title: "新增管理员",
+                index = layui.layer.open({
+                    title: "新增超级管理员",
                     type: 2,
                     area: ["500px", "450px"],
                     content: "adminAdd.html",

@@ -52,7 +52,7 @@ layui.use(['form', 'layer', 'table'], function () {
             {
                 field: 'parkName', title: '所属园区', minWidth: 120, align: "center", templet: function (d) {
                     if (d.parkName === null || d.parkName === "") {
-                        return '超级管理员';
+                        return '管理员';
                     }
                     return d.parkName;
                 }

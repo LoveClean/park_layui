@@ -35,8 +35,12 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
             url: $.cookie("tempUrl") + "connection/selectListByParkId?token=" + $.cookie("token") + "&parkId=" + $(".id").val(),
             type: "GET",
             success: function (result) {
-                tempListStatic = result;
-                tempList = result;
+                if (result) {
+                    result.forEach(function (e) {
+                        tempListStatic.push(e);
+                        tempList.push(e);
+                    })
+                }
                 //渲染标签
                 $.ajax({
                     url: $.cookie("tempUrl") + "app/selectList?token=" + $.cookie("token") + "&pageNum=1&pageSize=99",

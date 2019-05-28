@@ -26,7 +26,7 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
 
     //标签
     $.ajax({
-        url: "http://122.112.225.34:8089/app/selectList?token=" + $.cookie("token") + "&pageNum=1&pageSize=99",
+        url: "http://122.112.225.34:8089/app/selectList?pageNum=1&pageSize=99",
         type: "GET",
         success: function (result) {
             $.each(result.content,

@@ -18,10 +18,31 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
 
     let longitude = null,
         latitude = null,
+        tempList = [],
         coverUrl = null;
 
     //获取省信息
     address.provinces();
+
+    //标签
+    $.ajax({
+        url: $.cookie("tempUrl") + "app/selectList?token=" + $.cookie("token") + "&pageNum=1&pageSize=99",
+        type: "GET",
+        success: function (result) {
+            $.each(result.content,
+                function (index, item) {
+                    $(".appList").append($('<input type="checkbox" lay-filter="appList" title="' + item.name + '" value="' + item.id + '">'));
+                });
+            form.render();
+        }
+    });
+
+    form.on('checkbox(appList)', function (data) {
+        data.elem.checked ? tempList.push(data.value) : (tempList = $.grep(tempList, function (item) {
+            return item !== data.value;
+        }));
+        console.log(tempList);
+    });
 
     //封面图上传
     const uploadInst = upload.render({
@@ -95,6 +116,7 @@ layui.use(['form', 'layer', "address", 'upload'], function () {
                 introduction: $(".introduction").val(),
                 sort: null,
 
+                appIds: tempList,
                 adminPhone: applyAdminPhone
             }),
             success: function (result) {
